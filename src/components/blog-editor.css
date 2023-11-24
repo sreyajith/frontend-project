@@ -1,0 +1,6 @@
+textarea::placeholder {
+    opacity: 0.4 !important;
+  }
+  .gelasio-font {
+    font-family: 'Gelasio', sans-serif; 
+  }

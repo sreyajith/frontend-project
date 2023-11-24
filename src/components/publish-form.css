@@ -1,0 +1,36 @@
+.gelasio-font {
+    font-family: 'Gelasio', sans-serif; 
+  }
+  
+  .customsection {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+  }
+  @media (min-width: 992px) {
+    .customsection {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+    .customsection > * {
+        width: 100%; 
+        max-width: unset;
+      }
+
+  }
+  .customsection > * {
+    width: 100%; 
+    max-width: unset;
+  }
+
+  .sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  
+  .align-input {
+    width: 100%; 
+    box-sizing: border-box;
+}

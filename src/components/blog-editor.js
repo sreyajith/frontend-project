@@ -176,7 +176,7 @@ const BlogEditor = () => {
                   width: "100%",
                   height: "100%",
                   objectFit: "cover", 
-                  position: "absolute",
+                  position: "relative",
                   top: "0",
                   left: "0",
                 }}

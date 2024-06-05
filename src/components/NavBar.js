@@ -87,6 +87,13 @@ const NavBar = () => {
 
             {access_token ? (
               <>
+              <Link
+                  to="/dashboard/notification"
+                  className="btn btn-secondary rounded-pill position-relative hover:bg-black-10"
+                  style={{ width: "3rem", height: "3rem" }}
+                >
+                  <i className="bi bi-bell fs-5 mt-3"></i>
+                </Link>
                 <div
                   className="position-relative end-0"
                   onClick={handleUserNavPanel}

@@ -64,15 +64,15 @@ const CommentCard = ({ index, leftVal, commentData }) => {
     setBlog({...blog,comments:{results:commentsArr},activity:{...activity,total_parent_comments:total_parent_comments-(commentData.childrenLevel===0 && isDelete?1:0)}})
   }
 
-  const loadReplies=({skip=0})=>{
-    if(children.length){
+  const loadReplies=({skip=0,currentIndex=index})=>{
+    if(commentsArr[currentIndex].children.length){
         hideReplies();
-        axios.post("http://localhost:3000/get-replies",{_id,skip})
+        axios.post("http://localhost:3000/get-replies",{_id:commentsArr[currentIndex]._id,skip})
         .then(({data:{replies}})=>{
-            commentData.isReplyLoaded=true;
+          commentsArr[currentIndex].isReplyLoaded=true;
             for(let i=0;i<replies.length;i++){
-                replies[i].childrenLevel=commentData.childrenLevel+1;
-                commentsArr.splice(index+1+i+skip,0,replies[i])
+                replies[i].childrenLevel=commentsArr[currentIndex].childrenLevel+1;
+                commentsArr.splice(currentIndex+1+i+skip,0,replies[i])
             }
             setBlog({...blog,comments:{...comments,results:commentsArr}})
         })
@@ -108,6 +108,25 @@ const CommentCard = ({ index, leftVal, commentData }) => {
     })
   }
 
+  const LoadMoreRepliesButton=()=>{
+    let parentIndex=getParentIndex();
+    let button=<button onClick={()=>loadReplies({skip:index-parentIndex,currentIndex:parentIndex})} className="btn btn-primary btn-light px-8 rounded-pill d-flex align-items-center gap-2 mb-4">Load more Replies</button>;
+    if(commentsArr[index+1]){
+      if(commentsArr[index+1].childrenLevel<commentsArr[index].childrenLevel){
+        if((index-parentIndex)<commentsArr[parentIndex].children.length){
+          return  button;
+        }
+        
+      }
+    }else{
+      if(parentIndex){
+        if((index-parentIndex)<commentsArr[parentIndex].children.length){
+          return button;
+        }
+      }
+    }
+    
+  }
   return (
     <div
       className="w-100"
@@ -181,6 +200,7 @@ const CommentCard = ({ index, leftVal, commentData }) => {
           }
         </div>
       </div>
+      <LoadMoreRepliesButton/>
     </div>
   );
 };
